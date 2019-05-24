@@ -34,6 +34,7 @@ int main (){
             //i+j gives the position (columb) in the row, for each row.
             first[i+j] = i; 
             second[i+j] = j;
+        }
     }
 
     int *first_gpu;
@@ -43,17 +44,17 @@ int main (){
     //Iterations
     int N=SIZE; //size of vector
     //Number of blocks
-    int nBytes = N*sizeof(int);
+    int nBytes = N*N*sizeof(int);
     //Block size and number
     int block_size, block_no;
     block_size = 250; //threads per block
-    block_no = n/block_size;
+    block_no = N/block_size;
 
     printf("Allocating device memory on host..\n");
     //GPU memory allocation
-    cudaMalloc((void **) &first_gpu, N*N*sizeof(int));
-    cudaMalloc((void **) &second_gpu, N*N*sizeof(int));
-    cudaMalloc((void **) &result_gpu, N*N*sizeof(int));
+    cudaMalloc((void **) &first_gpu,  nBytes);
+    cudaMalloc((void **) &second_gpu, nBytes);
+    cudaMalloc((void **) &result_gpu, nBytes);
 
     //Work definition////////////////////
     dim3 dimBlock(block_size, 1, 1);
