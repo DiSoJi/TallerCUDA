@@ -61,8 +61,8 @@ int main (){
     dim3 dimGrid(block_no, 1, 1);
     /////////////////////////////////////
     printf("Copying to device..\n");
-    cudaMemcpy(first_gpu, first, N*N*sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(second_gpu, second, N*N*sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(first_gpu, first, nBytes, cudaMemcpyHostToDevice);
+    cudaMemcpy(second_gpu, second, nBytes, cudaMemcpyHostToDevice);
 
     //int n = N * N
     matrixMultiplicationKernel<<<block_no,block_size>>>(first_gpu, second_gpu, result_gpu, N);
@@ -71,7 +71,7 @@ int main (){
     cudaThreadSynchronize();
     
     //Copying data back to host, this is a blocking call and will not start until all kernels are finished
-    cudaMemcpy(result, result_gpu, n*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(result, result_gpu, nBytes, cudaMemcpyDeviceToHost);
     
     //Free GPU memory
     cudaFree(first_gpu);
