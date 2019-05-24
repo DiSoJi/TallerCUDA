@@ -20,7 +20,7 @@ void matrixMultiplicationKernel(int* A, int* B, int* C, int N) {
     }
     C[ROW * N + COL] = tmpSum;
 }
-
+/*
 void cudaCheckError() {
     cudaError_t e=cudaGetLastError();
     if(e!=cudaSuccess) {
@@ -28,7 +28,7 @@ void cudaCheckError() {
       exit(0); 
     }
    }
-   
+   */
 int main (){
     
     //I'm using vectors with 16 elements to represent the matrix (4 rows with 4 values)
@@ -75,7 +75,7 @@ int main (){
     clock_t start_d=clock();
     printf("Doing GPU Matrix Multiplication\n");
     matrixMultiplicationKernel<<<block_no,block_size>>>(first_gpu, second_gpu, result_gpu, N);
-    cudaCheckError();
+    //cudaCheckError();
     clock_t end_d = clock();
     //Wait for kernel call to finish
     cudaThreadSynchronize();
