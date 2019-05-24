@@ -64,15 +64,18 @@ int main (){
     cudaMemcpy(first_gpu, first, nBytes, cudaMemcpyHostToDevice);
     cudaMemcpy(second_gpu, second, nBytes, cudaMemcpyHostToDevice);
 
-    //int n = N * N
+    clock_t start_d=clock();
+    printf("Doing GPU Matrix Multiplication\n");
     matrixMultiplicationKernel<<<block_no,block_size>>>(first_gpu, second_gpu, result_gpu, N);
-
+    cudaCheckError();
+    clock_t end_d = clock();
     //Wait for kernel call to finish
     cudaThreadSynchronize();
     
     //Copying data back to host, this is a blocking call and will not start until all kernels are finished
     cudaMemcpy(result, result_gpu, nBytes, cudaMemcpyDeviceToHost);
-    
+    double time_d = (double)(end_d-start_d)/CLOCKS_PER_SEC;
+    printf("Time it took on GPU: %f", time_d);
     //Free GPU memory
     cudaFree(first_gpu);
     cudaFree(second_gpu);
