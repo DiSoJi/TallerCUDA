@@ -2,10 +2,7 @@ NVCC = nvcc
 
 all: dotProduct_CUDA
 
-%.o : %.cu
-	$(NVCC) -c $< -o $@
-
-matmul_CUDA : dotProduct_CUDA.o
+matmul_CUDA : dotProduct_CUDA
 	$(NVCC) $^ -o $@
 
 clean:
