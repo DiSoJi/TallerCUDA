@@ -21,7 +21,7 @@ int main() {
 
     int block_size, block_no;
     block_size = 250; //threads per block
-    block_no = N/block_size;
+    block_no = SIZE/block_size;
 
     //Data filling:
     for (int i = 0; i < SIZE; i++){
@@ -36,7 +36,7 @@ int main() {
     //GPU memory allocation
     cudaMalloc((void **) &first_gpu,  nBytes);
     cudaMalloc((void **) &second_gpu, nBytes);
-    cudaMalloc((int *) &result_gpu, sizeof(int));
+    cudaMalloc((void *) &result_gpu, sizeof(int));
 
     //Work definition////////////////////
     dim3 dimBlock(block_size, 1, 1);
