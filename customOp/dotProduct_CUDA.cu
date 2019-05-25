@@ -49,7 +49,7 @@ int main() {
 
     clock_t start_d = clock();
     printf("Doing GPU Matrix Multiplication\n");
-    dotProdKernel<<<block_no,block_size>>>(first_gpu, second_gpu, result_gpu, N);
+    dotProdKernel<<<block_no,block_size>>>(first_gpu, second_gpu, result_gpu, SIZE);
     //cudaCheckError();
     clock_t end_d = clock();
 
