@@ -2,7 +2,7 @@
 #include "stdlib.h"
 #include <cuda.h>
 
-#define SIZE 100
+#define SIZE 10000
 
 
 __global__
