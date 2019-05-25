@@ -5,8 +5,8 @@ all: dotProduct_CUDA
 %.o : %.cu
 	$(NVCC) -c $< -o $@
 
-matmul_CUDA : dotProduct.o
+matmul_CUDA : dotProduct_CUDA.o
 	$(NVCC) $^ -o $@
 
 clean:
-	rm -rf *.o *.a dotProduct
+	rm -rf *.o *.a dotProduct_CUDA
