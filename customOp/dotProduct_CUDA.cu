@@ -13,7 +13,7 @@ void dotProdKernel(int *A, int *B, int *C, int N){
 
 int main() {
 
-    int nbytes = SIZE * sizeof(int);
+    int nBytes = SIZE * sizeof(int);
     int *first = (int*) malloc(nBytes); 
     int *second = (int*) malloc(nBytes);
     int *result = (int*) malloc(sizeof(int));
