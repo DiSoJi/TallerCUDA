@@ -12,6 +12,7 @@ void dotProdKernel(int *A, int *B, int *C, int N){
 }
 
 int main {
+
     int nbytes = SIZE * sizeof(int);
     int *first = (int*) malloc(nBytes); 
     int *second = (int*) malloc(nBytes);
@@ -35,7 +36,7 @@ int main {
     //GPU memory allocation
     cudaMalloc((void **) &first_gpu,  nBytes);
     cudaMalloc((void **) &second_gpu, nBytes);
-    cudaMalloc((void **) &result_gpu, nBytes);
+    cudaMalloc((void *) &result_gpu, sizeof(int));
 
     //Work definition////////////////////
     dim3 dimBlock(block_size, 1, 1);
@@ -51,17 +52,18 @@ int main {
     dotProdKernel<<<block_no,block_size>>>(first_gpu, second_gpu, result_gpu, N);
     //cudaCheckError();
     clock_t end_d = clock();
+
     //Wait for kernel call to finish
     cudaThreadSynchronize();
 
     //Copying data back to host, this is a blocking call and will not start until all kernels are finished
-    cudaMemcpy(result, result_gpu, nBytes, cudaMemcpyDeviceToHost);
+    cudaMemcpy(result, result_gpu, sizeof(int), cudaMemcpyDeviceToHost);
     double time_d = (double)(end_d-start_d)/CLOCKS_PER_SEC;
     printf("Time it took on GPU: %f", time_d);
     //Free GPU memory
     cudaFree(first_gpu);
     cudaFree(second_gpu);
     cudaFree(result_gpu);
-    
+
     return 0;
 }
