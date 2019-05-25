@@ -11,7 +11,7 @@ void dotProdKernel(int *A, int *B, int *C, int N){
     *C += A[i] * B[i];
 }
 
-int main {
+int main() {
 
     int nbytes = SIZE * sizeof(int);
     int *first = (int*) malloc(nBytes); 
@@ -36,7 +36,7 @@ int main {
     //GPU memory allocation
     cudaMalloc((void **) &first_gpu,  nBytes);
     cudaMalloc((void **) &second_gpu, nBytes);
-    cudaMalloc((void *) &result_gpu, sizeof(int));
+    cudaMalloc((int *) &result_gpu, sizeof(int));
 
     //Work definition////////////////////
     dim3 dimBlock(block_size, 1, 1);
