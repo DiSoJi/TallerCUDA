@@ -11,6 +11,12 @@ void dotProdKernel(int *A, int *B, int *C, int N){
     *C += A[i] * B[i];
 }
 
+void dotProd_CPU(int *A, int *B, int *C, int N){
+    for (int i = 0; int < N; i++){
+        *C += A[i] * B[i];
+    }
+}
+
 int main() {
 
     int nBytes = SIZE * sizeof(int);
@@ -60,6 +66,14 @@ int main() {
     cudaMemcpy(result, result_gpu, sizeof(int), cudaMemcpyDeviceToHost);
     double time_d = (double)(end_d-start_d)/CLOCKS_PER_SEC;
     printf("Time it took on GPU: %f", time_d);
+
+    printf("Doing work on CPU \n");
+    clock_t start = clock();
+    dotProd_CPU(first,second,result,SIZE);
+    clock_t end = clock();
+    double time = (double)(end-start)/CLOCKS_PER_SEC;
+    printf("Time it took on CPU: %f", time);
+    
     //Free GPU memory
     cudaFree(first_gpu);
     cudaFree(second_gpu);

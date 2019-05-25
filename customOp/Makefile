@@ -5,7 +5,7 @@ all: dotProduct_CUDA
 %.o : %.cu
 	$(NVCC) -c $< -o $@
 
-dotProduct_CUDA : dotProduct_CUDA.o
+dotProduct_CUDA: dotProduct_CUDA.o
 	$(NVCC) $^ -o $@
 
 clean:
